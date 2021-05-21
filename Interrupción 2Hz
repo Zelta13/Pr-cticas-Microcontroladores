@@ -4,7 +4,7 @@
 
 RES_VECT  CODE    0x0000            ; processor reset vector
     GOTO    START                   ; go to beginning of program
-    
+
 INT_VECT CODE  0x004  ; interrupt vector
 	;ISR code 
 
@@ -20,20 +20,20 @@ INT_VECT CODE  0x004  ; interrupt vector
 	MOVWF TMR0
 	bcf INTCON, T0IF ; clr TMR0 interrupt flag
 	retfie  ; return from interrupt
-   
+
 MAIN_PROG CODE                      ; let linker place main program
 
 CNT equ 0x20 
 i equ 0x30
 j equ 0x31
 k equ 0x32
- 
+
 START
- 
+
 			; setup registers		
 			; setp TMR0 operation
 			; internal clock, pos edge, prescale 256
-    
+
     MOVLW 0x07		;Apagar comparadores
     MOVWF CMCON
     BSF	STATUS, RP0
@@ -58,9 +58,9 @@ START
     CLRF PORTA
     CLRF PORTB
 
-    
+
 inicio:	
-     
+
     bcf PORTB,7  ;poner el puerto B7 (bit 7 del puerto B) en 0
     call tiempo ;llamar a la rutina de tiempo
 
@@ -73,9 +73,9 @@ inicio:
 
     nop          ;NOPs de relleno (ajuste de tiempo)
     nop
-    
+
     goto inicio  ;regresar y repetir
-  
+
 ;rutina de tiempo
 tiempo:  
     nop	      ;NOPs de relleno (ajuste de tiempo)
@@ -105,6 +105,6 @@ kloop:
     goto iloop
     return	;salir de la rutina de tiempo y regresar al 
 			;valor de contador de programa
-    
+
 
     END
